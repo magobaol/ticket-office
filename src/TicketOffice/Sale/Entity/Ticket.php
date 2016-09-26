@@ -37,4 +37,13 @@ class Ticket
     {
         return json_encode($this->toArray());
     }
+
+
+    /**
+     * @return mixed
+     */
+    public function getPNR()
+    {
+        return $this->PNR;
+    }
 }

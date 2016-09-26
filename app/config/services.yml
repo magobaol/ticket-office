@@ -36,3 +36,12 @@ services:
           - "@ticket_office.sale.entity.customer_repository"
         tags:
           - { name: event_subscriber, subscribes_to: TicketOffice\Sale\Event\TicketBought }
+
+    ticket_office.sale.subscriber.send_pnr_when_ticket_bought:
+        class: TicketOffice\Sale\Subscriber\SendPNRWhenTicketBought
+        arguments:
+          - "@logger"
+          - "@ticket_office.sale.entity.ticket_repository"
+          - "@ticket_office.sale.entity.customer_repository"
+        tags:
+          - { name: event_subscriber, subscribes_to: TicketOffice\Sale\Event\TicketBought }
