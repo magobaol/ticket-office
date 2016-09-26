@@ -7,3 +7,9 @@ services:
     ticket_office.sale.entity.ticket_repository:
         class: AppBundle\Entity\DoctrineTicketRepository
         arguments: ["@doctrine.orm.default_entity_manager"]
+
+    ticket_office.sale.seat_picker:
+      class: TicketOffice\Sale\Service\SeatPicker
+
+    ticket_office.sale.pnr_generator:
+      class: TicketOffice\Sale\Service\PNRGenerator
