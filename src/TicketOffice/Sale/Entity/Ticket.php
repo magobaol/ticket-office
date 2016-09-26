@@ -20,4 +20,21 @@ class Ticket
         $this->seatNumber = $seatNumber;
         $this->PNR = $PNR;
     }
+
+    public function toArray()
+    {
+        return [
+            'id' => $this->id,
+            'customerId' => $this->customerId,
+            'trainNumber' => $this->trainNumber,
+            'departure' => $this->departure,
+            'seatNumber' => $this->seatNumber,
+            'PNR' => $this->PNR,
+        ];
+    }
+
+    public function toJson()
+    {
+        return json_encode($this->toArray());
+    }
 }
