@@ -6,6 +6,8 @@ class TicketOfficeException extends \Exception
 {
     private $details;
 
+    const CUSTOMER_NOT_ALLOWED = 3000;
+
     public function toArray()
     {
         $a['error']['code'] = $this->getCode();

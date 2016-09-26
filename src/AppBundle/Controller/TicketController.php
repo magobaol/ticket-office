@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Basic\CustomerNotAllowedException;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Ramsey\Uuid\Uuid;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -24,8 +25,12 @@ class TicketController extends Controller
             $request->get('trainNumber'),
             new \DateTime($request->get('departure'))
         );
-        $this->get('command_bus')->handle($command);
-        return new JsonResponse(['id' => $id], 200);
+        try {
+            $this->get('command_bus')->handle($command);
+            return new JsonResponse(['id' => $id], 200);
+        } catch (CustomerNotAllowedException $e) {
+            return new Response($e->toJson(), 400);
+        }
     }
 
     /**

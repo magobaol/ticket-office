@@ -2,6 +2,7 @@
 
 namespace TicketOffice\Sale\Command;
 
+use Basic\CustomerNotAllowedException;
 use SimpleBus\Message\Bus\MessageBus;
 use TicketOffice\Sale\Entity\Ticket;
 use TicketOffice\Sale\Entity\TicketRepository;
@@ -42,6 +43,9 @@ class BuyTicketHandler
 
     public function handle(BuyTicket $command)
     {
+        if ($command->getCustomerId() == 42) {
+            throw new CustomerNotAllowedException();
+        }
         $seat = $this->seatPicker->pick($command->getTrainNumber(), $command->getDeparture());
         $pnr = $this->PNRGenerator->generate($command->getTrainNumber(), $command->getDeparture(), $seat);
 
