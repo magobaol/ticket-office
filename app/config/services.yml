@@ -4,6 +4,6 @@ parameters:
 #    parameter_name: value
 
 services:
-#    service_name:
-#        class: AppBundle\Directory\ClassName
-#        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
+    ticket_office.sale.entity.ticket_repository:
+        class: AppBundle\Entity\DoctrineTicketRepository
+        arguments: ["@doctrine.orm.default_entity_manager"]
