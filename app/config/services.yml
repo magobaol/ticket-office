@@ -20,6 +20,7 @@ services:
           - "@ticket_office.sale.seat_picker"
           - "@ticket_office.sale.pnr_generator"
           - "@ticket_office.sale.entity.ticket_repository"
+          - "@event_bus"
         tags:
           - { name: command_handler, handles: TicketOffice\Sale\Command\BuyTicket }
 

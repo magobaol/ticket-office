@@ -2,8 +2,10 @@
 
 namespace TicketOffice\Sale\Command;
 
+use SimpleBus\Message\Bus\MessageBus;
 use TicketOffice\Sale\Entity\Ticket;
 use TicketOffice\Sale\Entity\TicketRepository;
+use TicketOffice\Sale\Event\TicketBought;
 use TicketOffice\Sale\Service\PNRGenerator;
 use TicketOffice\Sale\Service\SeatPicker;
 
@@ -21,15 +23,21 @@ class BuyTicketHandler
      * @var TicketRepository
      */
     private $ticketRepository;
+    /**
+     * @var MessageBus
+     */
+    private $eventBus;
 
     public function __construct(
         SeatPicker $seatPicker,
         PNRGenerator $PNRGenerator,
-        TicketRepository $ticketRepository
+        TicketRepository $ticketRepository,
+        MessageBus $eventBus
     ) {
         $this->seatPicker = $seatPicker;
         $this->PNRGenerator = $PNRGenerator;
         $this->ticketRepository = $ticketRepository;
+        $this->eventBus = $eventBus;
     }
 
     public function handle(BuyTicket $command)
@@ -46,5 +54,7 @@ class BuyTicketHandler
             $pnr
         );
         $this->ticketRepository->save($ticket);
+        $event = new TicketBought($command->getTrainNumber(), $command->getCustomerId(), $command->getId());
+        $this->eventBus->handle($event);
     }
 }
