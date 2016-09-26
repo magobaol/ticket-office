@@ -27,3 +27,12 @@ services:
     ticket_office.sale.entity.customer_repository:
         class: AppBundle\Entity\DoctrineCustomerRepository
         arguments: ["@doctrine.orm.default_entity_manager"]
+
+    ticket_office.sale.subscriber.send_confirmation_email_when_ticket_bought:
+        class: TicketOffice\Sale\Subscriber\SendConfirmationEmailWhenTicketBought
+        arguments:
+          - "@logger"
+          - "@ticket_office.sale.entity.ticket_repository"
+          - "@ticket_office.sale.entity.customer_repository"
+        tags:
+          - { name: event_subscriber, subscribes_to: TicketOffice\Sale\Event\TicketBought }
