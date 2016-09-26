@@ -22,3 +22,7 @@ services:
           - "@ticket_office.sale.entity.ticket_repository"
         tags:
           - { name: command_handler, handles: TicketOffice\Sale\Command\BuyTicket }
+
+    ticket_office.sale.entity.customer_repository:
+        class: AppBundle\Entity\DoctrineCustomerRepository
+        arguments: ["@doctrine.orm.default_entity_manager"]
