@@ -13,3 +13,12 @@ services:
 
     ticket_office.sale.pnr_generator:
       class: TicketOffice\Sale\Service\PNRGenerator
+
+    ticket_office.commands.buy_ticket_handler:
+        class: TicketOffice\Sale\Command\BuyTicketHandler
+        arguments:
+          - "@ticket_office.sale.seat_picker"
+          - "@ticket_office.sale.pnr_generator"
+          - "@ticket_office.sale.entity.ticket_repository"
+        tags:
+          - { name: command_handler, handles: TicketOffice\Sale\Command\BuyTicket }
