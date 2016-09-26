@@ -1,0 +1,18 @@
+TicketOffice\Sale\Entity\Ticket:
+    type: entity
+    table: ticket
+    id:
+        id:
+            type: string
+            generator: { strategy: NONE }
+    fields:
+        customerId:
+          type: integer
+        trainNumber:
+          type: integer
+        departure:
+          type: datetime
+        seatNumber:
+          type: integer
+        PNR:
+          type: string
